@@ -36,10 +36,8 @@ public:
     void read(istream & in );
     ~String();
 private:
-    bool inBounds( int i )
-    {
-        return i >= 0 && i < strlen(buf);
-    }// HINT: some C string primitives you should define and use
+    bool inBounds( int i );
+    // HINT: some C string primitives you should define and use
     static int strlen(const char *s);
     static char *strcpy(char *dest, const char *src);
     static char *strcat(char *dest, const char *src);
