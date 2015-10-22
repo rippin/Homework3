@@ -39,33 +39,26 @@ char & String::operator [] ( int index ){
 }
 
 int String::indexOf( const char c ){
-    /*
-    for (int i = 0; inBounds(i); ++i){
-        if (buf[i] == c) return i;
-            
-    }
-    return -1;
-     */
+    char * i = strchr(buf, c);
+    int index = (int) (i - buf);
+    return ((index  < size()) ? index : -1);
+     
 }
 int String::indexOf(String s ){
-    int i = 0, j = 0, k =0, st = 0;
-    cout << s << endl;
+    int i = 0, j = 0, k =0;
     while (inBounds(i)){
-        st = i;
         while (buf[k] == s.buf[j] || s.buf[j] == '\0'){
             if (s.buf[j] == '\0'){
-                return st;
+                return i;
             }
-            ++j;
-            ++k;
+            ++j, ++k;
         }
-        ++i;
-        k = i;
-
+        k = ++i;
         j = 0;
     }
     return -1;
 }
+
 int String::size(){
     return strlen(buf);
 }
@@ -106,7 +99,7 @@ bool String::operator > ( const String s ){
 }
 bool String::operator < ( const String s ){
     int i =  strcmp(this->buf, s.buf);
-    return !((i == 1) ? 1 : 0);
+    return !((i == -1) ? 1 : 0);
 }
 bool String::operator >= ( const String s ){
     int i =  strcmp(this->buf, s.buf);
@@ -150,7 +143,7 @@ int String::strcmp(const char *left, const char *right){
         ++left;
         ++right;
     }
-    return ((*(unsigned char*)left < *(unsigned char*)right) ? -1 : 1);
+    return (*left - *right);
 }
 
 char * String::strchr(const char * str, int c){
